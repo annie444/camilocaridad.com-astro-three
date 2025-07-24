@@ -1,10 +1,30 @@
 // Type imports
 import type { ManifestOptions } from "vite-plugin-pwa"
 
+export interface SEOConfig {
+	baseURL: string
+	description: string
+	type: "website" | "article"
+	image: {
+		url: string
+		alt: string
+		width: number
+		height: number
+	}
+	siteName: string
+	twitter?: {
+		card?: "summary" | "summary_large_image" | "app" | "player"
+		site?: string
+		title?: string
+		description?: string
+		image?: string
+	}
+}
+
 /**
  * Defines the default SEO configuration for the website.
  */
-export const seoConfig = {
+export const seoConfig: SEOProps = {
 	baseURL: "https://example.com", // Change this to your production URL.
 	description:
 		"Astro PWA Starter is an opionated Astro starter for building robust static websites.", // Change this to be your website's description.

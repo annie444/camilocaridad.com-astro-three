@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import nightwind from "nightwind/helper"
+import { toggle } from "nightwind/helper"
 import { Button } from "~/ui/button"
 import { Moon, Sun } from "lucide-react"
 
@@ -28,7 +28,7 @@ export default function ThemeToggle() {
 	}, [])
 
 	const toggleTheme = () => {
-		nightwind.toggle()
+		toggle()
 		setIsDark(!isDark)
 	}
 
@@ -36,15 +36,11 @@ export default function ThemeToggle() {
 		<Button
 			variant="outline"
 			size="icon"
-			className="ml-auto rounded-full cursor-pointer"
+			className="ml-auto cursor-pointer rounded-full"
 			onClick={toggleTheme}
 			aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}
 		>
-			{isDark ? (
-				<Sun className="h-5 w-5" />
-			) : (
-				<Moon className="h-5 w-5" />
-			)}
+			{isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
 		</Button>
 	)
 }
