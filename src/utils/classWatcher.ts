@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react"
+
 export class ClassWatcher {
 	targetNode: HTMLElement
 	classToWatch: string
@@ -57,4 +59,38 @@ export class ClassWatcher {
 			}
 		}
 	}
+}
+
+export function useDarkMode() {
+	const [isDark, setIsDark] = useState(false)
+
+	useEffect(() => {
+		if (typeof window === "undefined") return
+
+		const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)")
+		setIsDark(mediaQuery.matches)
+
+		const classWatcher = new ClassWatcher(
+			document.documentElement,
+			"dark",
+			() => {
+				console.log("Dark mode enabled")
+				setIsDark(true)
+			},
+			() => {
+				console.log("Dark mode disabled")
+				setIsDark(false)
+			}
+		)
+
+		const handler = (e: MediaQueryListEvent) => setIsDark(e.matches)
+		mediaQuery.addEventListener("change", handler)
+
+		return () => {
+			mediaQuery.removeEventListener("change", handler)
+			classWatcher.disconnect()
+		}
+	}, [])
+
+	return isDark
 }

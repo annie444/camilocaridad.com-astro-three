@@ -147,7 +147,7 @@ void mainImage(in vec4 inputColor, in vec2 uv, out vec4 outputColor) {
 `
 
 class RetroEffectImpl extends Effect {
-	public uniforms: Map<string, THREE.Uniform<any>>
+	declare public uniforms: Map<string, THREE.Uniform<any>>
 	constructor() {
 		const uniforms = new Map<string, THREE.Uniform<any>>([
 			["colorNum", new THREE.Uniform(4.0)],

@@ -2,8 +2,8 @@
 	Installed from https://reactbits.dev/ts/tailwind/
 */
 
-import React, { useEffect, useRef, useState } from "react"
-import { ClassWatcher } from "~/utils/classWatcher"
+import React, { useEffect, useRef } from "react"
+import { useDarkMode } from "~/utils/classWatcher"
 
 export interface GlassSurfaceProps {
 	children?: React.ReactNode
@@ -44,32 +44,6 @@ export interface GlassSurfaceProps {
 		| "plus-lighter"
 	className?: string
 	style?: React.CSSProperties
-}
-
-const useDarkMode = () => {
-	const [isDark, setIsDark] = useState(false)
-
-	useEffect(() => {
-		if (typeof window === "undefined") return
-
-		const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)")
-		const isDarkMode = document.documentElement.classList.contains("dark")
-		setIsDark(mediaQuery.matches || isDarkMode)
-
-		const handler = (e: MediaQueryListEvent) => setIsDark(e.matches)
-		mediaQuery.addEventListener("change", handler)
-		function darkModeHandler(this: HTMLElement, _: Event) {
-			console.log("Dark mode")
-			setIsDark(this.classList.contains("dark"))
-		}
-		document.documentElement.addEventListener("change", darkModeHandler)
-		return () => {
-			mediaQuery.removeEventListener("change", handler)
-			document.documentElement.removeEventListener("change", darkModeHandler)
-		}
-	}, [])
-
-	return isDark
 }
 
 const GlassSurface: React.FC<GlassSurfaceProps> = ({
